@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import "dotenv/config";
-//import "../container";
+import "../container";
 import { app } from "./app";
 
 app.listen(process.env.PORT, async () =>
