@@ -1,8 +1,10 @@
 import { Entity } from "../../../../core/domain/Enity";
 
 export type ProductProps = {
-    name: string;
-    imageUrl: string;
+    name?: string;
+    imageUrl?: string;
+    price?: number;
+
 }
 
 export class Product extends Entity<ProductProps> {

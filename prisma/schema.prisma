@@ -9,8 +9,9 @@ datasource db {
 
 model Product {
   id             String         @id @default(uuid())
-  name           String
-  imageUrl       String
+  name           String?
+  imageUrl       String?
+  price          Float? 
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
 }

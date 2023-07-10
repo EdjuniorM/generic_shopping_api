@@ -11,5 +11,5 @@
     "resolveJsonModule": true,
     "outDir": "./dist"
   },
-  "exclude": ["./test"]
+  "exclude": []
 }

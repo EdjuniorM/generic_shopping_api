@@ -5,6 +5,16 @@ import { IProductDataSource } from "./infra/datasources/IProductDataSource";
 import { PrismaProductDataSource } from "./external/datasources/PrismaProductDataSource";
 import { IProductRepository } from "./domain/repositories/IProductRepository";
 import { CreateProductUseCase } from "./domain/useCases/CreateProductUseCase";
+import { CreateProductValidator, ICreateProductValidator } from "./domain/useCases/CreateProductUseCase/CreateProductUseCase";
+import { IUpdateProductUseCase } from "./domain/useCases/UpdateProductUseCase/UpdateProductUseCase";
+import { UpdateProductUseCase } from "./domain/useCases/UpdateProductUseCase";
+
+
+//validator
+container.registerSingleton<ICreateProductValidator>(
+    "CreateProductValidator",
+    CreateProductValidator
+)
 
 //useCases
 container.registerSingleton<ICreateProductUseCase>(
@@ -12,6 +22,10 @@ container.registerSingleton<ICreateProductUseCase>(
      CreateProductUseCase
 )
 
+container.registerSingleton<IUpdateProductUseCase>(
+    "UpdateProductUseCase",
+    UpdateProductUseCase
+)
 
 //repositories
 container.registerSingleton<IProductRepository>(

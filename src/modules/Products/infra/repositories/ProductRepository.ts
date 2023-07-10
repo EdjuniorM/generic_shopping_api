@@ -4,6 +4,7 @@ import { CreateProductUseCaseParams } from "../../domain/useCases/CreateProductU
 import { Product } from "../../domain/entities/Product";
 import { AppError } from "../../../../core/errors/AppError";
 import { IProductDataSource } from "../datasources/IProductDataSource";
+import { UpdateProductUseCaseParams } from "../../domain/useCases/UpdateProductUseCase/UpdateProductUseCase";
 
 @injectable()
 export class ProductRepository implements IProductRepository {
@@ -17,6 +18,23 @@ export class ProductRepository implements IProductRepository {
 
             const product = new Product({ ...data });
             await this.dataSource.create(product)
+
+        } catch(e) {
+            throw new AppError(e.message, 400);
+        }
+    }
+
+    async update(data: UpdateProductUseCaseParams): Promise<void> {
+        try {
+            const product = new Product(
+             { 
+                name: data.name,
+                imageUrl: data.imageUrl,
+                price: data.price
+             },
+             data.id
+             );
+            await  this.dataSource.update(product)
 
         } catch(e) {
             throw new AppError(e.message, 400);
