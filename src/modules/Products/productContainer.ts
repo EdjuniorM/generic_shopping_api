@@ -8,6 +8,10 @@ import { CreateProductUseCase } from "./domain/useCases/CreateProductUseCase";
 import { CreateProductValidator, ICreateProductValidator } from "./domain/useCases/CreateProductUseCase/CreateProductUseCase";
 import { IUpdateProductUseCase } from "./domain/useCases/UpdateProductUseCase/UpdateProductUseCase";
 import { UpdateProductUseCase } from "./domain/useCases/UpdateProductUseCase";
+import { IFindProductByIdUseCase } from "./domain/useCases/FindProuctByIdUseCase/IFindProductByIdUseCase";
+import { FindProductUseCase } from "./domain/useCases/FindProuctByIdUseCase";
+import { IFindAllProductsUseCase } from "./domain/useCases/FindAllProductsUseCase/IFindAllProductsUseCase";
+import { FindAllProductsUseCase } from "./domain/useCases/FindAllProductsUseCase";
 
 
 //validator
@@ -27,6 +31,15 @@ container.registerSingleton<IUpdateProductUseCase>(
     UpdateProductUseCase
 )
 
+container.registerSingleton<IFindProductByIdUseCase>(
+    "FindProductUseCase",
+    FindProductUseCase
+)
+
+container.registerSingleton<IFindAllProductsUseCase>(
+    "FindAllProductsUseCase",
+    FindAllProductsUseCase
+)
 //repositories
 container.registerSingleton<IProductRepository>(
     "ProductRepository",

@@ -5,6 +5,7 @@ import { Product } from "../../domain/entities/Product";
 import { AppError } from "../../../../core/errors/AppError";
 import { IProductDataSource } from "../datasources/IProductDataSource";
 import { UpdateProductUseCaseParams } from "../../domain/useCases/UpdateProductUseCase/UpdateProductUseCase";
+import { NoParams } from "../../../../core/domain/IUseCase";
 
 @injectable()
 export class ProductRepository implements IProductRepository {
@@ -12,7 +13,6 @@ export class ProductRepository implements IProductRepository {
         @inject("ProductDataSource")
         private dataSource: IProductDataSource
     ) {}
-
     async create(data: CreateProductUseCaseParams): Promise<void> {
         try {
 
@@ -26,11 +26,12 @@ export class ProductRepository implements IProductRepository {
 
     async update(data: UpdateProductUseCaseParams): Promise<void> {
         try {
+            const oldProduct = await this.dataSource.findById(data.id)
             const product = new Product(
              { 
-                name: data.name,
-                imageUrl: data.imageUrl,
-                price: data.price
+                name: !!data.name ? data.name : oldProduct.props.name,
+                imageUrl: !!data.imageUrl ? data.imageUrl : oldProduct.props.imageUrl,
+                price: !!data.price ? data.price : oldProduct.props.price
              },
              data.id
              );
@@ -40,4 +41,17 @@ export class ProductRepository implements IProductRepository {
             throw new AppError(e.message, 400);
         }
     }
+
+    async findById(id: string): Promise<Product> {
+        const product = await this.dataSource.findById(id);
+
+        return product || null
+    }
+
+    async findAll(_: NoParams): Promise<Product[]> {
+        const product = await this.dataSource.findAll();
+
+        return product || null
+    }
+  
 }

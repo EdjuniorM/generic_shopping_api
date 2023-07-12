@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start App",
+      "type": "shell",
+      "command": "npm",
+      "args": ["start"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+        "label": "Build App",
+        "type": "shell",
+        "command": "npm",
+        "args": ["run", "build"],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    },
+    {
+        "label": "Run Tests",
+        "type": "shell",
+        "command": "npm",
+        "args": ["test"],
+        "presentation": {
+            "reveal": "always",
+            "panel": "new"
+        }
+    }
+  ]
+}

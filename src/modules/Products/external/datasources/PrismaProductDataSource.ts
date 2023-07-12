@@ -15,6 +15,17 @@ export class PrismaProductDataSource implements IProductDataSource {
         })
     }
 
+    async findById(id: string): Promise<Product> {
+        const prismaProduct = await prisma.product.findUnique({
+            where: {id}
+        })
+        const product = new Product(
+            { ...prismaProduct },
+        prismaProduct.id
+        )
+        return product
+    }
+
     async update(data: Product): Promise<void> {
        await prisma.product.update({
         where: {id: data.id},
@@ -23,4 +34,21 @@ export class PrismaProductDataSource implements IProductDataSource {
         }
        })
     }
+
+    async findAll(): Promise<Product[]> {
+        const prismaProduct = await prisma.product.findMany()
+
+        const product = prismaProduct.map((e) => {
+            return new Product (
+              {
+              ...e
+              },
+              e.id
+            )
+        })
+
+        return product
+    }
+
+    
 }
